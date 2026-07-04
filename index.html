@@ -17,7 +17,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 50px 20px;
+            padding: 50px 20px 20px 20px; /* Aşağı boşluğu tənzimlədim */
             margin: 0;
             min-height: 100vh;
             
@@ -148,6 +148,16 @@
             object-fit: contain; 
             border-radius: 4px; 
         }
+
+        /* --- MÜƏLLİFLİK HÜQUQU (FOOTER) --- */
+        .footer {
+            margin-top: auto; /* Yazını avtomatik ən aşağıya itələyir */
+            padding-top: 30px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6); /* Zərif, yarı şəffaf rəng */
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -158,14 +168,11 @@
     <div class="username">NATAMAM PODCAST</div>
 
     <!-- YOUTUBE VİDEO KARTI (Kliklənə bilən Thumbnail) -->
-    <!-- 1. Videonun tam linkini href="..." içinə yapışdırın -->
     <a href="https://www.youtube.com/watch?v=3jmZtRL2E7Q" target="_blank" class="yt-card">
         <div class="yt-thumbnail">
-            <!-- 2. Şəkil (Thumbnail) üçün yenə VİDEO_ID_BURAYA hissəsini silib öz ID-nizi yazın -->
             <img src="https://img.youtube.com/vi/3jmZtRL2E7Q/maxresdefault.jpg" alt="YouTube Thumbnail">
             <div class="play-btn"><span>▶</span></div>
         </div>
-        <!-- 3. Videonun adını aşağıya yazın -->
         <div class="yt-title">PAXILLIQ KEYFİYYƏT GÖSTƏRİCİSİDİR? | SOSİAL, ŞƏXSİ VƏ KORPORATİV QISQANCLIQ | NATAMAM PODCAST</div>
     </a>
 
@@ -210,6 +217,11 @@
         <img src="images/elaqe-icon.png" alt="Bizimlə Əlaqə" class="custom-icon">
         Bizimlə Əlaqə
     </a>
+
+    <!-- Footer / Müəlliflik Hüququ -->
+    <div class="footer">
+        © Bu sayt Elman Hüseynov tərəfindən yaradılmışdır. Bütün hüquqlar qorunur
+    </div>
 
 </body>
 </html>
