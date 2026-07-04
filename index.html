@@ -17,7 +17,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 50px 20px 20px 20px; /* Aşağı boşluğu tənzimlədim */
+            padding: 50px 20px 20px 20px;
             margin: 0;
             min-height: 100vh;
             
@@ -27,6 +27,30 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed; 
+        }
+
+        /* --- SAYĞAC (GÖZ İKONU) DİZAYNI --- */
+        .view-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .view-counter svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
         }
 
         .profile-pic {
@@ -71,7 +95,7 @@
         .yt-thumbnail {
             width: 100%;
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Thumbnail formatı */
+            padding-bottom: 56.25%; 
             background-color: #000;
         }
         .yt-thumbnail img {
@@ -82,7 +106,6 @@
             height: 100%;
             object-fit: cover;
         }
-        /* Videonun üzərindəki Qırmızı Play düyməsi */
         .play-btn {
             position: absolute;
             top: 50%;
@@ -99,7 +122,6 @@
             font-size: 20px;
             box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
-        /* Üçbucağı (play icon) mərkəzləşdirmək üçün kiçik toxunuş */
         .play-btn span {
             margin-left: 4px; 
         }
@@ -151,10 +173,10 @@
 
         /* --- MÜƏLLİFLİK HÜQUQU (FOOTER) --- */
         .footer {
-            margin-top: auto; /* Yazını avtomatik ən aşağıya itələyir */
+            margin-top: auto; 
             padding-top: 30px;
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.6); /* Zərif, yarı şəffaf rəng */
+            color: rgba(255, 255, 255, 0.6); 
             text-align: center;
             letter-spacing: 0.5px;
         }
@@ -162,12 +184,21 @@
 </head>
 <body>
 
+    <!-- BAXIŞ SAYĞACI -->
+    <div class="view-counter" title="Sayta daxil olanların ümumi sayı">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span id="viewCount">...</span>
+    </div>
+
     <!-- Profil Şəkli -->
     <img src="images/podcast-logo.png" alt="natamampodcast" class="profile-pic">
     
     <div class="username">NATAMAM PODCAST</div>
 
-    <!-- YOUTUBE VİDEO KARTI (Kliklənə bilən Thumbnail) -->
+    <!-- YOUTUBE VİDEO KARTI -->
     <a href="https://www.youtube.com/watch?v=3jmZtRL2E7Q" target="_blank" class="yt-card">
         <div class="yt-thumbnail">
             <img src="https://img.youtube.com/vi/3jmZtRL2E7Q/maxresdefault.jpg" alt="YouTube Thumbnail">
@@ -222,6 +253,22 @@
     <div class="footer">
         © Bu sayt Elman Hüseynov tərəfindən yaradılmışdır. Bütün hüquqlar qorunur
     </div>
+
+    <!-- SAYĞACI İŞLƏDƏN JAVASCRIPT KODU -->
+    <script>
+        // Natamam Podcast üçün xüsusi API linki. Hər səhifə yenilənəndə rəqəmi 1 vahid artırır.
+        fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/up')
+            .then(response => response.json())
+            .then(data => {
+                // Sayğacdakı "... " yazısını əsl rəqəmlə əvəz edir
+                document.getElementById('viewCount').innerText = data.count;
+            })
+            .catch(error => {
+                console.error('Sayğac yüklənmədi:', error);
+                // Əgər internet zəif olarsa, xəta verməsin deyə boş saxlayır
+                document.getElementById('viewCount').innerText = '-';
+            });
+    </script>
 
 </body>
 </html>
