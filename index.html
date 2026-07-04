@@ -185,7 +185,7 @@
 <body>
 
     <!-- BAXIŞ SAYĞACI -->
-    <div class="view-counter" title="Sayta daxil olanların ümumi sayı">
+    <div class="view-counter" title="Sayta daxil olan unikal istifadəçilərin sayı">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
@@ -254,20 +254,30 @@
         © Bu sayt Elman Hüseynov tərəfindən yaradılmışdır. Bütün hüquqlar qorunur
     </div>
 
-    <!-- SAYĞACI İŞLƏDƏN JAVASCRIPT KODU -->
+    <!-- SAYĞACI İŞLƏDƏN UNİKAL JAVASCRIPT KODU -->
     <script>
-        // Natamam Podcast üçün xüsusi API linki. Hər səhifə yenilənəndə rəqəmi 1 vahid artırır.
-        fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/up')
-            .then(response => response.json())
-            .then(data => {
-                // Sayğacdakı "... " yazısını əsl rəqəmlə əvəz edir
-                document.getElementById('viewCount').innerText = data.count;
-            })
-            .catch(error => {
-                console.error('Sayğac yüklənmədi:', error);
-                // Əgər internet zəif olarsa, xəta verməsin deyə boş saxlayır
-                document.getElementById('viewCount').innerText = '-';
-            });
+        // İstifadəçinin cihazında daha əvvəl bu sayta girib-girmədiyini yoxlayırıq
+        const hasVisited = localStorage.getItem('hasVisited_natamam');
+
+        if (!hasVisited) {
+            // Əgər ilk dəfə girirsə, rəqəmi 1 vahid ARTIR (/up)
+            fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/up')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('viewCount').innerText = data.count;
+                    // Və cihazına "möhür" vur ki, gələn dəfə yenidən saymasın
+                    localStorage.setItem('hasVisited_natamam', 'true');
+                })
+                .catch(error => console.error('Sayğac xətası:', error));
+        } else {
+            // Əgər artıq girib ("möhürü" varsa), sadəcə mövcud rəqəmi OXU (/), artırma
+            fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('viewCount').innerText = data.count;
+                })
+                .catch(error => console.error('Sayğac xətası:', error));
+        }
     </script>
 
 </body>
