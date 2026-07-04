@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natamam Podcast - Linklər</title>
+    <style>
+        :root {
+            --text-color: #ffffff;
+            --btn-bg: rgba(34, 34, 34, 0.85);
+            --brand-color: #ff4757;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            margin: 0;
+            min-height: 100vh;
+            
+            /* --- ARXA PLAN ŞƏKLİ AYARLARI --- */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url('images/bg-image.jpg');
+            background-color: #111111; 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; 
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--brand-color);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
+            background-color: #fff;
+        }
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); 
+        }
+        
+        /* --- YOUTUBE VİDEO KARTI DİZAYNI --- */
+        .yt-card {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--btn-bg);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            backdrop-filter: blur(5px);
+        }
+        .yt-card:hover {
+            transform: translateY(-4px);
+            border: 1px solid var(--brand-color);
+            box-shadow: 0 8px 15px rgba(255, 71, 87, 0.3);
+        }
+        .yt-thumbnail {
+            width: 100%;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Thumbnail formatı */
+            background-color: #000;
+        }
+        .yt-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Videonun üzərindəki Qırmızı Play düyməsi */
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 40px;
+            background-color: rgba(255, 0, 0, 0.9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        /* Üçbucağı (play icon) mərkəzləşdirmək üçün kiçik toxunuş */
+        .play-btn span {
+            margin-left: 4px; 
+        }
+        .yt-title {
+            padding: 14px 16px;
+            color: var(--text-color);
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .link-btn {
+            background-color: var(--btn-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            width: 100%;
+            max-width: 400px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            border-radius: 12px;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px; 
+            
+            font-size: 16px;
+            font-weight: 600;
+            box-sizing: border-box;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px); 
+        }
+        .link-btn:hover {
+            background-color: rgba(255, 71, 87, 0.1);
+            border: 1px solid var(--brand-color);
+            color: var(--brand-color);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(255, 71, 87, 0.3);
+        }
+        
+        .custom-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain; 
+            border-radius: 4px; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Profil Şəkli -->
+    <img src="images/podcast-logo.png" alt="natamampodcast" class="profile-pic">
+    
+    <div class="username">NATAMAM PODCAST</div>
+
+    <!-- YOUTUBE VİDEO KARTI (Kliklənə bilən Thumbnail) -->
+    <!-- 1. Videonun tam linkini href="..." içinə yapışdırın -->
+    <a href="https://www.youtube.com/watch?v=3jmZtRL2E7Q" target="_blank" class="yt-card">
+        <div class="yt-thumbnail">
+            <!-- 2. Şəkil (Thumbnail) üçün yenə VİDEO_ID_BURAYA hissəsini silib öz ID-nizi yazın -->
+            <img src="https://img.youtube.com/vi/3jmZtRL2E7Q/maxresdefault.jpg" alt="YouTube Thumbnail">
+            <div class="play-btn"><span>▶</span></div>
+        </div>
+        <!-- 3. Videonun adını aşağıya yazın -->
+        <div class="yt-title">PAXILLIQ KEYFİYYƏT GÖSTƏRİCİSİDİR? | SOSİAL, ŞƏXSİ VƏ KORPORATİV QISQANCLIQ | NATAMAM PODCAST</div>
+    </a>
+
+    <!-- Düymələr -->
+    <a href="https://kofe.al/@natamampodcast" target="_blank" class="link-btn">
+        <img src="images/kofe-logo.png" alt="Kofe" class="custom-icon">
+        Kofe.al
+    </a>
+    <a href="https://www.patreon.com/cw/NatamamPodcast" target="_blank" class="link-btn">
+        <img src="images/patreon-logo.png" alt="Patreon" class="custom-icon">
+        Patreonla ianə et
+    </a>
+    <a href="https://t.me/+zWbP6bKeLqMxNzBi" target="_blank" class="link-btn">
+        <img src="images/telegram-logo.png" alt="Telegram" class="custom-icon">
+        Telegram
+    </a>
+    <a href="https://instagram.com/natamampodcast?igsh=bXc3ZndmOGx5eDE0&utm_source=qr" target="_blank" class="link-btn">
+        <img src="images/instagram-logo.png" alt="Instagram" class="custom-icon">
+        Bizim Instagram
+    </a>
+    <a href="https://instagram.com/elmanagram" target="_blank" class="link-btn">
+        <img src="images/instagram-logo.png" alt="Instagram Elman" class="custom-icon">
+        Instagram (Elman)
+    </a>
+    <a href="https://instagram.com/vanta_nata1" target="_blank" class="link-btn">
+        <img src="images/instagram-logo.png" alt="Instagram Natavan" class="custom-icon">
+        Instagram (Natavan)
+    </a>
+    <a href="https://tiktok.com/@elman_hsynv" target="_blank" class="link-btn">
+        <img src="images/tiktok-logo.png" alt="TikTok Elman" class="custom-icon">
+        TikTok (Elman)
+    </a>
+    <a href="https://tiktok.com/@van1_1" target="_blank" class="link-btn">
+        <img src="images/tiktok-logo.png" alt="TikTok Natavan" class="custom-icon">
+        TikTok (Natavan)
+    </a>
+    <a href="#" target="_blank" class="link-btn">
+        <img src="images/kampaniya-icon.png" alt="Kampaniyalar" class="custom-icon">
+        Kampaniyalar
+    </a>
+    <a href="mailto:natamampodcast@outlook.com" target="_blank" class="link-btn">
+        <img src="images/elaqe-icon.png" alt="Bizimlə Əlaqə" class="custom-icon">
+        Bizimlə Əlaqə
+    </a>
+
+</body>
+</html>
