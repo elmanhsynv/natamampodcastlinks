@@ -29,6 +29,24 @@
             background-attachment: fixed; 
         }
 
+        /* --- ANİMASİYA (YUMŞAQ GİRİŞ) DİZAYNI --- */
+        .animate-item {
+            opacity: 0;
+            position: relative;
+            top: 25px; /* Başlanğıcda elementlər bir az aşağıda durur */
+            /* cubic-bezier animasiyanın axıcı (yuxarı çatanda yavaşlayan) olmasını təmin edir */
+            animation: fadeUpAnim 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            /* Hər bir elementin gecikmə müddəti HTML-dən (delay) oxunur */
+            animation-delay: calc(var(--delay) * 0.1s); 
+        }
+        
+        @keyframes fadeUpAnim {
+            to {
+                opacity: 1;
+                top: 0;
+            }
+        }
+
         /* --- SAYĞAC (GÖZ İKONU) DİZAYNI --- */
         .view-counter {
             position: absolute;
@@ -184,8 +202,8 @@
 </head>
 <body>
 
-    <!-- BAXIŞ SAYĞACI -->
-    <div class="view-counter" title="Sayta daxil olan unikal istifadəçilərin sayı">
+    <!-- BAXIŞ SAYĞACI (İlk ekrana gələn: delay 0) -->
+    <div class="view-counter animate-item" style="--delay: 0;" title="Sayta daxil olan unikal istifadəçilərin sayı">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
@@ -193,13 +211,14 @@
         <span id="viewCount">...</span>
     </div>
 
-    <!-- Profil Şəkli -->
-    <img src="images/podcast-logo.png" alt="natamampodcast" class="profile-pic">
+    <!-- Profil Şəkli (delay 1) -->
+    <img src="images/podcast-logo.png" alt="natamampodcast" class="profile-pic animate-item" style="--delay: 1;">
     
-    <div class="username">NATAMAM PODCAST</div>
+    <!-- İstifadəçi adı (delay 2) -->
+    <div class="username animate-item" style="--delay: 2;">NATAMAM PODCAST</div>
 
-    <!-- YOUTUBE VİDEO KARTI -->
-    <a href="https://www.youtube.com/watch?v=3jmZtRL2E7Q" target="_blank" class="yt-card">
+    <!-- YOUTUBE VİDEO KARTI (delay 3) -->
+    <a href="https://www.youtube.com/watch?v=3jmZtRL2E7Q" target="_blank" class="yt-card animate-item" style="--delay: 3;">
         <div class="yt-thumbnail">
             <img src="https://img.youtube.com/vi/3jmZtRL2E7Q/maxresdefault.jpg" alt="YouTube Thumbnail">
             <div class="play-btn"><span>▶</span></div>
@@ -207,70 +226,66 @@
         <div class="yt-title">PAXILLIQ KEYFİYYƏT GÖSTƏRİCİSİDİR? | SOSİAL, ŞƏXSİ VƏ KORPORATİV QISQANCLIQ | NATAMAM PODCAST</div>
     </a>
 
-    <!-- Düymələr -->
-    <a href="https://kofe.al/@natamampodcast" target="_blank" class="link-btn">
+    <!-- Düymələr (delay 4-dən başlayaraq sıra ilə artır) -->
+    <a href="https://kofe.al/@natamampodcast" target="_blank" class="link-btn animate-item" style="--delay: 4;">
         <img src="images/kofe-logo.png" alt="Kofe" class="custom-icon">
         Kofe.al
     </a>
-    <a href="https://www.patreon.com/cw/NatamamPodcast" target="_blank" class="link-btn">
+    <a href="https://www.patreon.com/cw/NatamamPodcast" target="_blank" class="link-btn animate-item" style="--delay: 5;">
         <img src="images/patreon-logo.png" alt="Patreon" class="custom-icon">
         Patreonla ianə et
     </a>
-    <a href="https://t.me/+zWbP6bKeLqMxNzBi" target="_blank" class="link-btn">
+    <a href="https://t.me/+zWbP6bKeLqMxNzBi" target="_blank" class="link-btn animate-item" style="--delay: 6;">
         <img src="images/telegram-logo.png" alt="Telegram" class="custom-icon">
         Telegram
     </a>
-    <a href="https://instagram.com/natamampodcast?igsh=bXc3ZndmOGx5eDE0&utm_source=qr" target="_blank" class="link-btn">
+    <a href="https://instagram.com/natamampodcast?igsh=bXc3ZndmOGx5eDE0&utm_source=qr" target="_blank" class="link-btn animate-item" style="--delay: 7;">
         <img src="images/instagram-logo.png" alt="Instagram" class="custom-icon">
         Bizim Instagram
     </a>
-    <a href="https://instagram.com/elmanagram" target="_blank" class="link-btn">
+    <a href="https://instagram.com/elmanagram" target="_blank" class="link-btn animate-item" style="--delay: 8;">
         <img src="images/instagram-logo.png" alt="Instagram Elman" class="custom-icon">
         Instagram (Elman)
     </a>
-    <a href="https://instagram.com/vanta_nata1" target="_blank" class="link-btn">
+    <a href="https://instagram.com/vanta_nata1" target="_blank" class="link-btn animate-item" style="--delay: 9;">
         <img src="images/instagram-logo.png" alt="Instagram Natavan" class="custom-icon">
         Instagram (Natavan)
     </a>
-    <a href="https://tiktok.com/@elman_hsynv" target="_blank" class="link-btn">
+    <a href="https://tiktok.com/@elman_hsynv" target="_blank" class="link-btn animate-item" style="--delay: 10;">
         <img src="images/tiktok-logo.png" alt="TikTok Elman" class="custom-icon">
         TikTok (Elman)
     </a>
-    <a href="https://tiktok.com/@van1_1" target="_blank" class="link-btn">
+    <a href="https://tiktok.com/@van1_1" target="_blank" class="link-btn animate-item" style="--delay: 11;">
         <img src="images/tiktok-logo.png" alt="TikTok Natavan" class="custom-icon">
         TikTok (Natavan)
     </a>
-    <a href="#" target="_blank" class="link-btn">
+    <a href="#" target="_blank" class="link-btn animate-item" style="--delay: 12;">
         <img src="images/kampaniya-icon.png" alt="Kampaniyalar" class="custom-icon">
         Kampaniyalar
     </a>
-    <a href="mailto:natamampodcast@outlook.com" target="_blank" class="link-btn">
+    <a href="mailto:natamampodcast@outlook.com" target="_blank" class="link-btn animate-item" style="--delay: 13;">
         <img src="images/elaqe-icon.png" alt="Bizimlə Əlaqə" class="custom-icon">
         Bizimlə Əlaqə
     </a>
 
-    <!-- Footer / Müəlliflik Hüququ -->
-    <div class="footer">
+    <!-- Footer / Müəlliflik Hüququ (delay 14) -->
+    <div class="footer animate-item" style="--delay: 14;">
         © Bu sayt Elman Hüseynov tərəfindən yaradılmışdır. Bütün hüquqlar qorunur
     </div>
 
     <!-- SAYĞACI İŞLƏDƏN UNİKAL JAVASCRIPT KODU -->
     <script>
-        // İstifadəçinin cihazında daha əvvəl bu sayta girib-girmədiyini yoxlayırıq
         const hasVisited = localStorage.getItem('hasVisited_natamam');
 
         if (!hasVisited) {
-            // Əgər ilk dəfə girirsə, rəqəmi 1 vahid ARTIR (/up)
             fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/up')
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('viewCount').innerText = data.count;
-                    // Və cihazına "möhür" vur ki, gələn dəfə yenidən saymasın
                     localStorage.setItem('hasVisited_natamam', 'true');
                 })
                 .catch(error => console.error('Sayğac xətası:', error));
         } else {
-            // Əgər artıq girib ("möhürü" varsa), sadəcə mövcud rəqəmi OXU (/), artırma
             fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/')
                 .then(response => response.json())
                 .then(data => {
