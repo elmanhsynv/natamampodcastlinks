@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Natamam Podcast - Linklər</title>
+    
+    <!-- YENİ: BRAUZER (TAB) LOQOSU (Favicon) -->
+    <link rel="icon" type="image/png" href="images/podcast-logo.png">
+    
     <style>
         :root {
             --text-color: #ffffff;
@@ -199,6 +203,50 @@
             letter-spacing: 0.5px;
         }
     </style>
+    <!-- YENİ: Firebase Modular SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // NATAMAM PODCAST FIREBASE CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyANPqnaN3sXpM02BB5qKj73ViqKw5nkhpE",
+            authDomain: "natamam-hesabat.firebaseapp.com",
+            projectId: "natamam-hesabat",
+            storageBucket: "natamam-hesabat.firebasestorage.app",
+            messagingSenderId: "12730604191",
+            appId: "1:12730604191:web:cfcb0342877fe3a8d460aa"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // YENİ: ZİYARƏTÇİ SAYĞACI FUNKSİYASI (Firebase)
+        async function trackVisitor() {
+            // Linklər üçün ayrı bir dokument yaradırıq ("links_visitors")
+            const statsRef = doc(db, "stats", "links_visitors");
+            const viewCountEl = document.getElementById('viewCount');
+            
+            try {
+                if (!sessionStorage.getItem('visited_links')) {
+                    await setDoc(statsRef, { count: increment(1) }, { merge: true });
+                    sessionStorage.setItem('visited_links', 'true');
+                }
+                const snap = await getDoc(statsRef);
+                if (snap.exists()) {
+                    viewCountEl.textContent = snap.data().count;
+                } else {
+                    viewCountEl.textContent = "1";
+                }
+            } catch (error) {
+                console.error("Ziyarətçi sayğacı işləmədi:", error);
+                viewCountEl.textContent = "-";
+            }
+        }
+        
+        // Sayğacı çağır
+        trackVisitor();
+    </script>
 </head>
 <body>
 
@@ -220,10 +268,10 @@
     <!-- YOUTUBE VİDEO KARTI (delay 3) -->
     <a href="https://www.youtube.com/watch?v=vmxUSPCQ5fg" target="_blank" class="yt-card animate-item" style="--delay: 3;">
         <div class="yt-thumbnail">
-            <img src="https://img.youtube.com/vi/awXv2TGk5P0/maxresdefault.jpg" alt="YouTube Thumbnail">
+            <img src="https://img.youtube.com/vi/vmxUSPCQ5fg/maxresdefault.jpg" alt="YouTube Thumbnail">
             <div class="play-btn"><span>▶</span></div>
         </div>
-        <div class="yt-title">BƏŞƏRİYYƏTİN SONU NECƏ GƏLƏCƏK? | İNSANLIQ NİYƏ YOX OLMAQ ÜZRƏDİR? | NATAMAM PODCAST</div>
+        <div class="yt-title">NİYƏ "AFƏRİN!" EŞİTMƏDƏN YAŞAYA BİLMİRİK? | BAŞQALARI ÜÇÜN YAŞAYIRIQ | NATAMAM PODCAST</div>
     </a>
 
     <!-- Düymələr (delay 4-dən başlayaraq sıra ilə artır) -->
@@ -255,49 +303,27 @@
         <img src="images/tiktok-logo.png" alt="TikTok Elman" class="custom-icon">
         TikTok (Natamam Podcast - rəsmi)
     </a>
-    <a href="https://tiktok.com/@elman_hsynv" target="_blank" class="link-btn animate-item" style="--delay: 10;">
+    <a href="https://tiktok.com/@elman_hsynv" target="_blank" class="link-btn animate-item" style="--delay: 11;">
         <img src="images/tiktok-logo.png" alt="TikTok Elman" class="custom-icon">
         TikTok (Elman)
     </a>
-    <a href="https://tiktok.com/@santabox123" target="_blank" class="link-btn animate-item" style="--delay: 11;">
+    <a href="https://tiktok.com/@santabox123" target="_blank" class="link-btn animate-item" style="--delay: 12;">
         <img src="images/tiktok-logo.png" alt="TikTok Natavan" class="custom-icon">
         TikTok (Natavan)
     </a>
-    <a href="#" target="_blank" class="link-btn animate-item" style="--delay: 12;">
+    <a href="#" target="_blank" class="link-btn animate-item" style="--delay: 13;">
         <img src="images/kampaniya-icon.png" alt="Kampaniyalar" class="custom-icon">
         Kampaniyalar
     </a>
-    <a href="mailto:natamampodcast@outlook.com" target="_blank" class="link-btn animate-item" style="--delay: 13;">
+    <a href="mailto:natamampodcast@outlook.com" target="_blank" class="link-btn animate-item" style="--delay: 14;">
         <img src="images/elaqe-icon.png" alt="Bizimlə Əlaqə" class="custom-icon">
         Bizimlə Əlaqə
     </a>
 
-    <!-- Footer / Müəlliflik Hüququ (delay 14) -->
-    <div class="footer animate-item" style="--delay: 14;">
-        © Bu sayt Elman Hüseynov tərəfindən yaradılmışdır. Bütün hüquqlar qorunur
+    <!-- Footer / Müəlliflik Hüququ (delay 15) -->
+    <div class="footer animate-item" style="--delay: 15;">
+        © Bu dizayn AI və Elman Hüseynov tərəfindən hazırlanmışdır
     </div>
-
-    <!-- SAYĞACI İŞLƏDƏN UNİKAL JAVASCRIPT KODU -->
-    <script>
-        const hasVisited = localStorage.getItem('hasVisited_natamam');
-
-        if (!hasVisited) {
-            fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/up')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('viewCount').innerText = data.count;
-                    localStorage.setItem('hasVisited_natamam', 'true');
-                })
-                .catch(error => console.error('Sayğac xətası:', error));
-        } else {
-            fetch('https://api.counterapi.dev/v1/natamampodcast_links/visits/')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('viewCount').innerText = data.count;
-                })
-                .catch(error => console.error('Sayğac xətası:', error));
-        }
-    </script>
 
 </body>
 </html>
