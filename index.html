@@ -37,10 +37,8 @@
         .animate-item {
             opacity: 0;
             position: relative;
-            top: 25px; /* Başlanğıcda elementlər bir az aşağıda durur */
-            /* cubic-bezier animasiyanın axıcı (yuxarı çatanda yavaşlayan) olmasını təmin edir */
+            top: 25px;
             animation: fadeUpAnim 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            /* Hər bir elementin gecikmə müddəti HTML-dən (delay) oxunur */
             animation-delay: calc(var(--delay) * 0.1s); 
         }
         
@@ -203,6 +201,7 @@
             letter-spacing: 0.5px;
         }
     </style>
+    
     <!-- YENİ: Firebase Modular SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -221,19 +220,22 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // YENİ: ZİYARƏTÇİ SAYĞACI FUNKSİYASI (Firebase)
+        // ZİYARƏTÇİ SAYĞACI FUNKSİYASI (Firebase)
         async function trackVisitor() {
-            // Linklər üçün ayrı bir dokument yaradırıq ("links_visitors")
             const statsRef = doc(db, "stats", "links_visitors");
             const viewCountEl = document.getElementById('viewCount');
             
             try {
-                if (!sessionStorage.getItem('visited_links')) {
+                // sessionStorage əvəzinə localStorage istifadə edirik ki, eyni adamı dəfələrlə saymasın
+                if (!localStorage.getItem('visited_links_fb')) {
                     await setDoc(statsRef, { count: increment(1) }, { merge: true });
-                    sessionStorage.setItem('visited_links', 'true');
+                    localStorage.setItem('visited_links_fb', 'true');
                 }
+                
                 const snap = await getDoc(statsRef);
-                if (snap.exists()) {
+                
+                // snap mövcuddursa və içindəki məlumat undefined deyilsə
+                if (snap.exists() && snap.data().count !== undefined) {
                     viewCountEl.textContent = snap.data().count;
                 } else {
                     viewCountEl.textContent = "1";
@@ -268,7 +270,8 @@
     <!-- YOUTUBE VİDEO KARTI (delay 3) -->
     <a href="https://www.youtube.com/watch?v=vmxUSPCQ5fg" target="_blank" class="yt-card animate-item" style="--delay: 3;">
         <div class="yt-thumbnail">
-            <img src="https://img.youtube.com/vi/2rU3JWKc/maxresdefault.jpg" alt="YouTube Thumbnail">
+            <!-- XƏTA BURADA İDİ: Thumbnail ID-si düzəldildi -->
+            <img src="https://img.youtube.com/vi/vmxUSPCQ5fg/maxresdefault.jpg" alt="YouTube Thumbnail">
             <div class="play-btn"><span>▶</span></div>
         </div>
         <div class="yt-title">NİYƏ "AFƏRİN!" EŞİTMƏDƏN YAŞAYA BİLMİRİK? | BAŞQALARI ÜÇÜN YAŞAYIRIQ | NATAMAM PODCAST</div>
