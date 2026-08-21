@@ -201,52 +201,6 @@
             letter-spacing: 0.5px;
         }
     </style>
-    
-    <!-- YENİ: Firebase Modular SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-        // NATAMAM PODCAST FIREBASE CONFIGURATION
-        const firebaseConfig = {
-            apiKey: "AIzaSyANPqnaN3sXpM02BB5qKj73ViqKw5nkhpE",
-            authDomain: "natamam-hesabat.firebaseapp.com",
-            projectId: "natamam-hesabat",
-            storageBucket: "natamam-hesabat.firebasestorage.app",
-            messagingSenderId: "12730604191",
-            appId: "1:12730604191:web:cfcb0342877fe3a8d460aa"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // ZİYARƏTÇİ SAYĞACI FUNKSİYASI (Firebase)
-        async function trackVisitor() {
-            const statsRef = doc(db, "stats", "links_visitors");
-            const viewCountEl = document.getElementById('viewCount');
-            
-            try {
-                if (!localStorage.getItem('visited_links_fb')) {
-                    await setDoc(statsRef, { count: increment(1) }, { merge: true });
-                    localStorage.setItem('visited_links_fb', 'true');
-                }
-                
-                const snap = await getDoc(statsRef);
-                
-                if (snap.exists() && snap.data().count !== undefined) {
-                    viewCountEl.textContent = snap.data().count;
-                } else {
-                    viewCountEl.textContent = "1";
-                }
-            } catch (error) {
-                console.error("Ziyarətçi sayğacı işləmədi:", error);
-                viewCountEl.textContent = "-";
-            }
-        }
-        
-        // Sayğacı çağır
-        trackVisitor();
-    </script>
 </head>
 <body>
 
@@ -266,7 +220,6 @@
     <div class="username animate-item" style="--delay: 2;">NATAMAM PODCAST</div>
 
     <!-- YOUTUBE VİDEO KARTI (delay 3) -->
-    <!-- XƏTA BURADA İDİ: Video URL və Thumbnail ID-si tam olaraq 2rU3JWKc_p4 olmalıdır -->
     <a href="https://www.youtube.com/watch?v=2rU3JWKc_p4" target="_blank" class="yt-card animate-item" style="--delay: 3;">
         <div class="yt-thumbnail">
             <img src="https://img.youtube.com/vi/2rU3JWKc_p4/maxresdefault.jpg" alt="YouTube Thumbnail">
@@ -325,6 +278,37 @@
     <div class="footer animate-item" style="--delay: 15;">
         © Bu dizayn AI və Elman Hüseynov tərəfindən hazırlanmışdır
     </div>
+
+    <!-- TƏMİZ VƏ AĞILLI JAVASCRIPT SAYĞACI -->
+    <script>
+        const hasVisited = localStorage.getItem('hasVisited_natamam');
+        
+        // Cihazın daha əvvəl ziyarət edib-etmədiyinə uyğun linki seçirik
+        const apiUrl = hasVisited 
+            ? 'https://api.counterapi.dev/v1/natamampodcast_links/visits/' 
+            : 'https://api.counterapi.dev/v1/natamampodcast_links/visits/up';
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // API bəzən "count", bəzən isə "value" qaytara bilir
+                let viewCount = data.count !== undefined ? data.count : data.value;
+
+                // Əgər serverdən undefined (boşluq) və ya xəta gəlibsə
+                if (viewCount === undefined || viewCount === null) {
+                    viewCount = 1; 
+                    localStorage.removeItem('hasVisited_natamam');
+                } else {
+                    localStorage.setItem('hasVisited_natamam', 'true');
+                }
+
+                document.getElementById('viewCount').innerText = viewCount;
+            })
+            .catch(error => {
+                console.error('Sayğac xətası:', error);
+                document.getElementById('viewCount').innerText = '-';
+            });
+    </script>
 
 </body>
 </html>
