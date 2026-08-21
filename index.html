@@ -37,7 +37,7 @@
         .animate-item {
             opacity: 0;
             position: relative;
-            top: 25px;
+            top: 25px; 
             animation: fadeUpAnim 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             animation-delay: calc(var(--delay) * 0.1s); 
         }
@@ -226,7 +226,6 @@
             const viewCountEl = document.getElementById('viewCount');
             
             try {
-                // sessionStorage əvəzinə localStorage istifadə edirik ki, eyni adamı dəfələrlə saymasın
                 if (!localStorage.getItem('visited_links_fb')) {
                     await setDoc(statsRef, { count: increment(1) }, { merge: true });
                     localStorage.setItem('visited_links_fb', 'true');
@@ -234,7 +233,6 @@
                 
                 const snap = await getDoc(statsRef);
                 
-                // snap mövcuddursa və içindəki məlumat undefined deyilsə
                 if (snap.exists() && snap.data().count !== undefined) {
                     viewCountEl.textContent = snap.data().count;
                 } else {
@@ -268,10 +266,10 @@
     <div class="username animate-item" style="--delay: 2;">NATAMAM PODCAST</div>
 
     <!-- YOUTUBE VİDEO KARTI (delay 3) -->
-    <a href="https://www.youtube.com/watch?v=vmxUSPCQ5fg" target="_blank" class="yt-card animate-item" style="--delay: 3;">
+    <!-- XƏTA BURADA İDİ: Video URL və Thumbnail ID-si tam olaraq 2rU3JWKc_p4 olmalıdır -->
+    <a href="https://www.youtube.com/watch?v=2rU3JWKc_p4" target="_blank" class="yt-card animate-item" style="--delay: 3;">
         <div class="yt-thumbnail">
-            <!-- XƏTA BURADA İDİ: Thumbnail ID-si düzəldildi -->
-            <img src="https://img.youtube.com/vi/vmxUSPCQ5fg/maxresdefault.jpg" alt="YouTube Thumbnail">
+            <img src="https://img.youtube.com/vi/2rU3JWKc_p4/maxresdefault.jpg" alt="YouTube Thumbnail">
             <div class="play-btn"><span>▶</span></div>
         </div>
         <div class="yt-title">NİYƏ "AFƏRİN!" EŞİTMƏDƏN YAŞAYA BİLMİRİK? | BAŞQALARI ÜÇÜN YAŞAYIRIQ | NATAMAM PODCAST</div>
